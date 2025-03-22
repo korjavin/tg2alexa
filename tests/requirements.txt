@@ -3,3 +3,4 @@ pytest-asyncio==0.23.5
 httpx==0.26.0
 redis==5.0.3
 fastapi==0.109.0
+python-telegram-bot==20.3
