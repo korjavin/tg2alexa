@@ -1,0 +1,8 @@
+yourdomain.com {
+    reverse_proxy /telegram* localhost:8000
+    reverse_proxy /alexa* localhost:8000
+    
+    tls {
+        dns disable
+    }
+}
