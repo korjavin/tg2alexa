@@ -38,9 +38,9 @@ Create `.env` file with following variables:
 
 ```bash
 TELEGRAM_TOKEN=your_telegram_bot_token
-REDIS_HOST=redis_host
-REDIS_PORT=6379
-REDIS_DB=0
+ALEXA_APP_ID=your_alexa_app_id
+DOMAIN_NAME=your.domain.com
+LETSENCRYPT_EMAIL=your@email.com
 ```
 
 ### 4. Deployment
@@ -51,7 +51,7 @@ REDIS_DB=0
    docker push your-image-name
    ```
 
-2. Deploy to your Hetzner server using Podman:
+2. Deploy to your server using Podman:
    ```bash
    podman run -d \
      --name telegram-alexa-bridge \
