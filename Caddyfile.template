@@ -1,4 +1,4 @@
-yourdomain.com {
+{$DOMAIN_NAME} {
     reverse_proxy /telegram* localhost:8000
     reverse_proxy /alexa* localhost:8000
     

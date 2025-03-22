@@ -13,7 +13,8 @@ RUN apt-get update && \
     apt-get install -y \
         redis-server \
         supervisor \
-        curl && \
+        curl \
+        gettext-base && \
     # Install Caddy from GitHub releases
     curl -o /usr/local/bin/caddy -L "https://github.com/caddyserver/caddy/releases/download/v2.7.5/caddy_2.7.5_linux_amd64" && \
     chmod +x /usr/local/bin/caddy && \
@@ -35,8 +36,15 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Create Caddy config directory
 RUN mkdir -p /etc/caddy
 
+# Copy Caddy config and entrypoint
+COPY Caddyfile.template /etc/caddy/
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+
 # Expose only HTTP/HTTPS ports
 EXPOSE 80 443
 
 # Run supervisor
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

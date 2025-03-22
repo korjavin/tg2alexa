@@ -45,19 +45,13 @@ LETSENCRYPT_EMAIL=your@email.com
 
 ### 4. Deployment
 
-1. Build and push Docker image:
-   ```bash
-   docker build -t your-image-name .
-   docker push your-image-name
-   ```
-
-2. Deploy to your server using Podman:
+Deploy to your server using Podman:
    ```bash
    podman run -d \
      --name telegram-alexa-bridge \
      --env-file .env \
      -p 80:80 -p 443:443 \
-     your-image-name
+      ghcr.io/korjavin/tg2alexa
    ```
 
 ## Activating the Skill
