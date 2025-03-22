@@ -3,3 +3,5 @@ pytest-asyncio==0.23.5
 redis==5.0.3
 fastapi==0.109.0
 python-telegram-bot==20.3
+ask-sdk-core==1.38.0
+ask-sdk-webservice-support==1.4.0
