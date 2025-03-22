@@ -8,15 +8,17 @@ RUN pip install --user -r requirements.txt
 # Runtime stage
 FROM python:3.12-slim
 
-# Add Caddy repository and install required packages
+# Install required packages
 RUN apt-get update && \
-    apt-get install -y debian-keyring debian-archive-keyring apt-transport-https && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
-    apt-get update && \
-    apt-get install -y redis-server supervisor caddy && \
-    apt-get remove -y debian-keyring debian-archive-keyring apt-transport-https && \
-    apt-get autoremove -y && \
+    apt-get install -y \
+        redis-server \
+        supervisor \
+        curl && \
+    # Install Caddy from GitHub releases
+    curl -o /usr/local/bin/caddy -L "https://github.com/caddyserver/caddy/releases/download/v2.7.5/caddy_2.7.5_linux_amd64" && \
+    chmod +x /usr/local/bin/caddy && \
+    # Cleanup
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy Python dependencies
@@ -29,6 +31,9 @@ COPY . .
 
 # Supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Create Caddy config directory
+RUN mkdir -p /etc/caddy
 
 # Expose only HTTP/HTTPS ports
 EXPOSE 80 443
