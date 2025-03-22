@@ -1,6 +1,6 @@
 fastapi==0.95.2
 uvicorn==0.22.0
 python-telegram-bot==20.3
-ask-sdk-core==1.36.0
+ask-sdk-core==1.19.0
 redis==5.0.0
 python-dotenv==1.0.0
